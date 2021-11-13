@@ -6,12 +6,14 @@ import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { toast } from 'react-toastify'
 import { IBillCpfl } from '../interfaces/billCpfl'
 import ReactLoading from 'react-loading'
+import Image from 'next/image'
 
 export default function Home() {
   const [documentCpf, setDocumentCpf] = useState('')
   const [installation, setInstallation] = useState('')
   const [billInfo, setBillInfo] = useState<IBillCpfl>()
   const [loading, setLoading] = useState(false)
+  const [openModalImagePreview, setOpenModalImagePreview] = useState(false)
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault()
@@ -48,7 +50,17 @@ export default function Home() {
               />
             </div>
             <div className="input-block">
-              <p>Digite o número da instalação</p>
+              <div className="header-input-block">
+                <p>Digite o número da instalação</p>
+                <button
+                  type="button"
+                  onClick={() =>
+                    setOpenModalImagePreview(!openModalImagePreview)
+                  }
+                >
+                  ❔
+                </button>
+              </div>
               <sub>Pode ser encontrado em seu talão de energia</sub>
               <input
                 value={installation}
@@ -64,10 +76,11 @@ export default function Home() {
         </section>
         <section className="show-information">
           {loading && (
-          <div className="loading">
-            <h3>Carregando</h3>
-            <ReactLoading color="#7556ea" type="spin" />
-          </div>)}
+            <div className="loading">
+              <h3>Carregando</h3>
+              <ReactLoading color="#7556ea" type="spin" />
+            </div>
+          )}
 
           {billInfo &&
             (billInfo.success ? (
@@ -120,6 +133,34 @@ export default function Home() {
             Carlos Severo
           </a>
         </footer>
+
+        {openModalImagePreview && (
+          <div className="modal-mask">
+            <div className="modal-view-image">
+              <div className="modal-content">
+                <button
+                  type="button"
+                  className="close-button"
+                  onClick={() => {
+                    setOpenModalImagePreview(!openModalImagePreview)
+                  }}
+                >
+                  ✖
+                </button>
+                <span>
+                  A imagem abaixo mostra onde você pode localizar o código da
+                  sua instalação
+                </span>
+                <Image
+                  className="preview-image"
+                  src="/installation-code.jpg"
+                  width="384px"
+                  height="202px"
+                />
+              </div>
+            </div>
+          </div>
+        )}
       </MainWrapper>
     </>
   )

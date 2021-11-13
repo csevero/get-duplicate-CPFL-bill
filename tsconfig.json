@@ -20,6 +20,7 @@
     "incremental": true
   },
   "include": [
+    "images.d.ts",
     "next-env.d.ts",
     "src/**/*.ts",
     "src/**/*.tsx"

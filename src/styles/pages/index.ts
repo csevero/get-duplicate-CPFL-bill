@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
 export const MainWrapper = styled.main`
+  /**Desktop Stylization - Start */
   width: 60vw;
   height: 100%;
   margin: 0 auto;
@@ -17,6 +18,24 @@ export const MainWrapper = styled.main`
         p {
           font-weight: 500;
           margin: 0;
+        }
+
+        .header-input-block {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: center;
+
+          button {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            margin-left: 10px;
+            border-radius: 100px;
+            align-items: center;
+            justify-content: center;
+            background: #7556ea;
+          }
         }
 
         input {
@@ -135,6 +154,68 @@ export const MainWrapper = styled.main`
     }
   }
 
+  .modal-mask {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background: #00000066;
+
+    .modal-view-image {
+      width: 90%;
+      height: 100%;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      .modal-content {
+        display: flex;
+        flex-direction: column;
+        padding: 50px;
+        border-radius: 0 10px 10px 10px;
+        background: #edf7ff;
+        position: relative;
+
+        span {
+          font-size: 16px;
+          margin: 0 auto;
+          max-width: 280px;
+        }
+
+        .preview-image {
+          border-radius: 10px;
+        }
+
+        .close-button {
+          width: 30px;
+          height: 30px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: transparent;
+          border: none;
+          cursor: pointer;
+
+          position: absolute;
+          right: 10px;
+          top: 10px;
+        }
+      }
+    }
+  }
+
+  /**Desktop Stylization - End */
+
+  /**Mobile Stylization - Start */
+  @media (max-width: 998px) {
+    width: 90vw;
+  }
+  /**Mobile Stylization - End */
+
+  /**Animations - Start */
   @keyframes switch-color-text {
     0%,
     100% {
@@ -156,8 +237,5 @@ export const MainWrapper = styled.main`
       background: #7556ea;
     }
   }
-
-  @media (max-width: 998px) {
-    width: 90vw;
-  }
+  /**Animations - End */
 `
