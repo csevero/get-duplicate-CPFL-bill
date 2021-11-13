@@ -5,20 +5,24 @@ import { MainWrapper } from '../styles/pages'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { toast } from 'react-toastify'
 import { IBillCpfl } from '../interfaces/billCpfl'
+import ReactLoading from 'react-loading'
 
 export default function Home() {
   const [documentCpf, setDocumentCpf] = useState('')
   const [installation, setInstallation] = useState('')
   const [billInfo, setBillInfo] = useState<IBillCpfl>()
+  const [loading, setLoading] = useState(false)
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault()
 
+    setLoading(true)
     const getBill = await fetch(
       `/api/getCpflBill?document=${documentCpf}&installation=${installation}`
     ).then(response => response.json())
 
     setBillInfo(getBill)
+    setLoading(false)
   }
 
   return (
@@ -59,9 +63,18 @@ export default function Home() {
           </form>
         </section>
         <section className="show-information">
+          {loading && (
+          <div className="loading">
+            <h3>Carregando</h3>
+            <ReactLoading color="#7556ea" type="spin" />
+          </div>)}
+
           {billInfo &&
             (billInfo.success ? (
-              <div className="success-message">
+              <div
+                style={{ display: loading ? 'none' : 'initial' }}
+                className="success-message"
+              >
                 <h3>Valor da fatura: R${billInfo.TotalDebitos}</h3>
                 {billInfo.ContasAberto.length > 0 ? (
                   billInfo.ContasAberto.map(conta => {

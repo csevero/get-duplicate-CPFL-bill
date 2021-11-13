@@ -64,6 +64,19 @@ export const MainWrapper = styled.main`
   .show-information {
     margin-top: 20px;
 
+    .loading {
+      width: 100%;
+
+      h3 {
+        color: #7556ea;
+      }
+
+      div {
+        margin: 0 auto;
+        margin-bottom: 20px;
+      }
+    }
+
     .success-message {
       .no-pending-debt {
         color: #06d261;
@@ -123,7 +136,8 @@ export const MainWrapper = styled.main`
   }
 
   @keyframes switch-color-text {
-    0%,100% {
+    0%,
+    100% {
       color: #06d261;
     }
 
@@ -133,7 +147,8 @@ export const MainWrapper = styled.main`
   }
 
   @keyframes switch-color-background {
-    0%,100% {
+    0%,
+    100% {
       background: #06d261;
     }
 
