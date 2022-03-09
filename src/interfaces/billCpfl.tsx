@@ -8,6 +8,7 @@ export interface IBillCpfl {
       CodBarras: string
       MesReferencia: string
       DTLimiteReaviso: string
+      Vencimento: string
     }
   ]
 }

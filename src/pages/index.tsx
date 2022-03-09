@@ -112,7 +112,7 @@ export default function Home() {
                           Mês de referência: <b>{conta.MesReferencia}</b>
                         </p>
                         <p>
-                          Vencimento: <b>{conta.DTLimiteReaviso}</b>
+                          Vencimento: <b>{conta.DTLimiteReaviso || new Date(conta.Vencimento).toLocaleDateString('pt-BR')}</b>
                         </p>
                       </div>
                     )
