@@ -18,6 +18,17 @@ export default function Home() {
   async function handleSubmit(e: FormEvent) {
     e.preventDefault()
 
+    return toast.warn(
+      'A consulta de débitos não pode ser mais feita por aqui, acesse o site mostrado abaixo do botão, ou clique aqui nessa notificação pra ser redirecionado',
+      {
+        onClick() {
+          window.open(
+            'https://servicosonline.cpfl.com.br/agencia-webapp/#/via-pagamento'
+          )
+        }
+      }
+    )
+
     setLoading(true)
     const getBill = await fetch(
       `/api/getCpflBill?document=${documentCpf}&installation=${installation}`
@@ -41,11 +52,13 @@ export default function Home() {
             <div className="input-block">
               <p>Digite o CPF do dono da residência</p>
               <input
+                id="cpf"
                 value={documentCpf}
                 required
                 onChange={e => {
                   setDocumentCpf(e.target.value)
                 }}
+                placeholder="Digite apenas os números (44433322211)"
                 type="number"
               />
             </div>
@@ -63,18 +76,31 @@ export default function Home() {
               </div>
               <sub>Pode ser encontrado em seu talão de energia</sub>
               <input
+                id="installation"
                 value={installation}
                 required
                 onChange={e => {
                   setInstallation(e.target.value)
                 }}
+                placeholder="Digite apenas os números (444333222)"
                 type="number"
               />
             </div>
-            <button type="submit">Consultar</button>
+            <button disabled type="submit">
+              Consultar
+            </button>
           </form>
         </section>
         <section className="show-information">
+          <div className="communication">
+            <h3>
+              Infelizmente a CPFL alterou a forma que a consulta de débitos é
+              feita então não é mais possível fazê-la por aqui
+            </h3>
+            <a href="https://servicosonline.cpfl.com.br/agencia-webapp/#/via-pagamento">
+              Clique aqui para buscar os débitos abertos pelo site da CPFL
+            </a>
+          </div>
           {loading && (
             <div className="loading">
               <h3>Carregando</h3>
@@ -112,7 +138,13 @@ export default function Home() {
                           Mês de referência: <b>{conta.MesReferencia}</b>
                         </p>
                         <p>
-                          Vencimento: <b>{conta.DTLimiteReaviso || new Date(conta.Vencimento).toLocaleDateString('pt-BR')}</b>
+                          Vencimento:{' '}
+                          <b>
+                            {conta.DTLimiteReaviso ||
+                              new Date(conta.Vencimento).toLocaleDateString(
+                                'pt-BR'
+                              )}
+                          </b>
                         </p>
                       </div>
                     )

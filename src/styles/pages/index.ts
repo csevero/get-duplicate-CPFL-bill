@@ -76,12 +76,34 @@ export const MainWrapper = styled.main`
         &:active {
           filter: brightness(0.6);
         }
+
+        &:disabled {
+          filter: brightness(0.5);
+          cursor: not-allowed;
+
+          &:hover {
+            filter: brightness(0.5);
+          }
+        }
       }
     }
   }
 
   .show-information {
     margin-top: 20px;
+
+    .communication {
+      h3 {
+        color: #e60000;
+        font-weight: 700;
+        margin: 10px 0;
+      }
+
+      a {
+        font-size: 16px;
+        font-weight: 700;
+      }
+    }
 
     .loading {
       width: 100%;
